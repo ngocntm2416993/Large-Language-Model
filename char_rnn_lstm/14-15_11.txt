@@ -1,0 +1,642 @@
+﻿Windows PowerShell 5.1
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+PS C:\Windows\System32> tailscale status
+100.104.95.26  desktop-v00afub                          ngocntm2416993@  windows  -
+100.80.74.96   maixuanngocs-mac-mini.tail0a2b27.ts.net  mxngocqb@        macOS    -
+PS C:\Windows\System32> ssh maixuanngoc@100.80.74.96
+The authenticity of host '100.80.74.96 (100.80.74.96)' can't be established.
+ED25519 key fingerprint is SHA256:ts5YfkSZfLuA1No7loRcdroXnZKBdp74UqZDxeUZTao.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '100.80.74.96' (ED25519) to the list of known hosts.
+(maixuanngoc@100.80.74.96) Password:
+Last login: Fri Nov 13 14:32:26 2026 from 100.83.134.117
+maixuanngoc@maixuanngocs-Mac-mini ~ % uname -a
+Darwin maixuanngocs-Mac-mini.local 25.5.0 Darwin Kernel Version 25.5.0: Mon Apr 27 20:41:26 PDT 2026; root:xnu-12377.121.6~2/RELEASE_ARM64_T8132 arm64
+maixuanngoc@maixuanngocs-Mac-mini ~ % python 3 --version
+zsh: command not found: python
+maixuanngoc@maixuanngocs-Mac-mini ~ % python3 --version
+Python 3.9.6
+maixuanngoc@maixuanngocs-Mac-mini ~ % mkdir -p ~/char_rnn && cd ~/char_rnn
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % python3 -m venv
+usage: venv [-h] [--system-site-packages]
+            [--symlinks | --copies] [--clear] [--upgrade]
+            [--without-pip] [--prompt PROMPT] [--upgrade-deps]
+            ENV_DIR [ENV_DIR ...]
+venv: error: the following arguments are required: ENV_DIR
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % source venv/bin/activate
+source: no such file or directory: venv/bin/activate
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % python3 -m venv venv
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % source venv/bin/activate
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % pip install torch numpy pypdf
+Collecting torch
+  Using cached torch-2.8.0-cp39-none-macosx_11_0_arm64.whl (73.6 MB)
+Collecting numpy
+  Using cached numpy-2.0.2-cp39-cp39-macosx_14_0_arm64.whl (5.3 MB)
+Collecting pypdf
+  Downloading pypdf-6.21.4-py3-none-any.whl (410 kB)
+     |▉                               | 10 kB 1.5 MB/s eta 0:00:     |█▋                              | 20 kB 1.4 MB/s eta 0:00:     |██▍                             | 30 kB 931 kB/s eta 0:00:     |███▏                            | 40 kB 1.0 MB/s eta 0:00:     |████                            | 51 kB 623 kB/s eta 0:00:     |████▉                           | 61 kB 744 kB/s eta 0:00:     |█████▋                          | 71 kB 865 kB/s eta 0:00:     |██████▍                         | 81 kB 715 kB/s eta 0:00:     |███████▏                        | 92 kB 803 kB/s eta 0:00:     |████████                        | 102 kB 751 kB/s eta 0:00     |████████▉                       | 112 kB 751 kB/s eta 0:00     |█████████▋                      | 122 kB 751 kB/s eta 0:00     |██████████▍                     | 133 kB 751 kB/s eta 0:00     |███████████▏                    | 143 kB 751 kB/s eta 0:00     |████████████                    | 153 kB 751 kB/s eta 0:00     |████████████▊                   | 163 kB 751 kB/s eta 0:00     |█████████████▋                  | 174 kB 751 kB/s eta 0:00     |██████████████▍                 | 184 kB 751 kB/s eta 0:00     |███████████████▏                | 194 kB 751 kB/s eta 0:00     |████████████████                | 204 kB 751 kB/s eta 0:00     |████████████████▊               | 215 kB 751 kB/s eta 0:00     |█████████████████▋              | 225 kB 751 kB/s eta 0:00     |██████████████████▍             | 235 kB 751 kB/s eta 0:00     |███████████████████▏            | 245 kB 751 kB/s eta 0:00     |████████████████████            | 256 kB 751 kB/s eta 0:00     |████████████████████▊           | 266 kB 751 kB/s eta 0:00     |█████████████████████▋          | 276 kB 751 kB/s eta 0:00     |██████████████████████▍         | 286 kB 751 kB/s eta 0:00     |███████████████████████▏        | 296 kB 751 kB/s eta 0:00     |████████████████████████        | 307 kB 751 kB/s eta 0:00     |████████████████████████▊       | 317 kB 751 kB/s eta 0:00     |█████████████████████████▌      | 327 kB 751 kB/s eta 0:00     |██████████████████████████▍     | 337 kB 751 kB/s eta 0:00     |███████████████████████████▏    | 348 kB 751 kB/s eta 0:00     |████████████████████████████    | 358 kB 751 kB/s eta 0:00     |████████████████████████████▊   | 368 kB 751 kB/s eta 0:00     |█████████████████████████████▌  | 378 kB 751 kB/s eta 0:00     |██████████████████████████████▍ | 389 kB 751 kB/s eta 0:00     |███████████████████████████████▏| 399 kB 751 kB/s eta 0:00     |████████████████████████████████| 409 kB 751 kB/s eta 0:00     |████████████████████████████████| 410 kB 751 kB/s
+Collecting filelock
+  Using cached filelock-3.19.1-py3-none-any.whl (15 kB)
+Collecting typing-extensions>=4.10.0
+  Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+     |███████▏                        | 10 kB 132 kB/s eta 0:00:     |██████████████▍                 | 20 kB 114 kB/s eta 0:00:     |█████████████████████▋          | 30 kB 171 kB/s eta 0:00:     |████████████████████████████▊   | 40 kB 174 kB/s eta 0:00:     |████████████████████████████████| 45 kB 210 kB/s
+Collecting jinja2
+  Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Collecting fsspec
+  Using cached fsspec-2025.10.0-py3-none-any.whl (200 kB)
+Collecting sympy>=1.13.3
+  Using cached sympy-1.14.0-py3-none-any.whl (6.3 MB)
+Collecting networkx
+  Using cached networkx-3.2.1-py3-none-any.whl (1.6 MB)
+Collecting mpmath<1.4,>=1.1.0
+  Using cached mpmath-1.3.0-py3-none-any.whl (536 kB)
+Collecting MarkupSafe>=2.0
+  Downloading markupsafe-3.0.4-cp39-cp39-macosx_11_0_arm64.whl (12 kB)
+Installing collected packages: mpmath, MarkupSafe, typing-extensions, sympy, networkx, jinja2, fsspec, filelock, torch, pypdf, numpy
+Successfully installed MarkupSafe-3.0.4 filelock-3.19.1 fsspec-2025.10.0 jinja2-3.1.6 mpmath-1.3.0 networkx-3.2.1 numpy-2.0.2 pypdf-6.21.4 sympy-1.14.0 torch-2.8.0 typing-extensions-4.16.0
+WARNING: You are using pip version 21.2.4; however, version 26.0.1 is available.
+You should consider upgrading via the '/Users/maixuanngoc/char_rnn/venv/bin/python3 -m pip install --upgrade pip' command.
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % pip install --upgrade pip
+Requirement already satisfied: pip in ./venv/lib/python3.9/site-packages (21.2.4)
+Collecting pip
+  Using cached pip-26.0.1-py3-none-any.whl (1.8 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 21.2.4
+    Uninstalling pip-21.2.4:
+      Successfully uninstalled pip-21.2.4
+Successfully installed pip-26.0.1
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % python -c "import torch; print(torch.__version__, torch.backends.mps.is_available())"
+2.8.0 True
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % mkdir -p ~/char_rnn
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % pwd
+/Users/maixuanngoc/char_rnn
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % grep -n "mps" train.py generate.py
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls
+generate.py     sach.pdf        train.py        venv
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % rm -f train.py generate.py sach.pdf sach.txt char_rnn_last.pt char_rnn_best.pt train.log nohup.out
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls
+venv
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls          generate.py     sach.pdf        train.py        venv
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % grep -n "mps" train.py generate.py
+train.py:126:    elif torch.backends.mps.is_available():
+train.py:127:        device = torch.device('mps')
+generate.py:64:    elif torch.backends.mps.is_available():
+generate.py:65:        device = torch.device('mps')
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn %
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % python train.py --pdf sach.pdf --epochs 1 --eval-every 20
+Device: mps
+Converted /Users/maixuanngoc/char_rnn/sach.pdf -> /Users/maixuanngoc/char_rnn/book.txt (470121 characters)
+Length of encoded text: 470121 | Length of dictionary: 170
+CharRNN(
+  (lstm): LSTM(170, 512, num_layers=2, batch_first=True, dropout=0.5)
+  (dropout): Dropout(p=0.5, inplace=False)
+  (fc): Linear(in_features=512, out_features=170, bias=True)
+)
+Epoch 1/1 | Step 20 | Loss 3.6867 | Val 3.6028 | 5s  <- best, saved
+== Finished epoch 1, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Best validation loss: 3.6027559439341226
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % tmux new -s train
+zsh: command not found: tmux
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % nohup python train.py > train.log 2>&1 &
+[1] 16388
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn %
+[1]  + done       nohup python train.py > train.log 2>&1
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % cat train.log
+Device: mps
+Length of encoded text: 470121 | Length of dictionary: 170
+CharRNN(
+  (lstm): LSTM(170, 512, num_layers=2, batch_first=True, dropout=0.5)
+  (dropout): Dropout(p=0.5, inplace=False)
+  (fc): Linear(in_features=512, out_features=170, bias=True)
+)
+== Finished epoch 1, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 2, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 3, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 4/20 | Step 100 | Loss 3.5942 | Val 3.5128 | 13s  <- best, saved
+== Finished epoch 4, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 5, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 6, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 7/20 | Step 200 | Loss 2.4175 | Val 2.3883 | 27s  <- best, saved
+== Finished epoch 7, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 8, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 9, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 10/20 | Step 300 | Loss 2.1167 | Val 2.0973 | 40s  <- best, saved
+== Finished epoch 10, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 11, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 12, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 13/20 | Step 400 | Loss 1.9262 | Val 1.9444 | 53s  <- best, saved
+== Finished epoch 13, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 14, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 15, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 16/20 | Step 500 | Loss 1.8300 | Val 1.8660 | 66s  <- best, saved
+== Finished epoch 16, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 17, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 18, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 19/20 | Step 600 | Loss 1.7733 | Val 1.8090 | 80s  <- best, saved
+== Finished epoch 19, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 20, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Best validation loss: 1.8089757760365803
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % python generate.py --prime "Ngày xưa" --temperature 0.8
+Device: mps
+Checkpoint: epoch 19, step 600, val 1.8090
+
+--- Mẫu 1 ---
+Ngày xưang chiến như thể nhưng chỉ bố chuyện này đã này thì này.
+
+--- Mẫu 2 ---
+Ngày xưa thư cho trước ngươi cho nghe tiện thấy thế này thì có tiếm đó cũng ta cũng nên của biển thì tay trong cũng cũng trước.
+
+--- Mẫu 3 ---
+Ngày xưa. Cậu đó cháu điều đó nhưng người đã
+cho đến nhà đã của mình là thấy nào chuyện nghĩ trong thì cũng ngoài được.
+
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % tail -20 train.log
+Epoch 7/20 | Step 200 | Loss 2.4175 | Val 2.3883 | 27s  <- best, saved
+== Finished epoch 7, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 8, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 9, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 10/20 | Step 300 | Loss 2.1167 | Val 2.0973 | 40s  <- best, saved
+== Finished epoch 10, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 11, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 12, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 13/20 | Step 400 | Loss 1.9262 | Val 1.9444 | 53s  <- best, saved
+== Finished epoch 13, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 14, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 15, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 16/20 | Step 500 | Loss 1.8300 | Val 1.8660 | 66s  <- best, saved
+== Finished epoch 16, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 17, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 18, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 19/20 | Step 600 | Loss 1.7733 | Val 1.8090 | 80s  <- best, saved
+== Finished epoch 19, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+== Finished epoch 20, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Best validation loss: 1.8089757760365803
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls          book.txt                sach(4).pdf
+char_rnn_best.pt        sach(5).pdf
+char_rnn_last.pt        sach.pdf
+generate.py             train.log
+sach(2).pdf             train.py
+sach(3).pdf             venv
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % rm -f char_rnn_last.pt char_rnn_best.pt
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % nohup python train.py --pdf sach.pdf "sach(2).pdf" "sach(3).pdf" "sach(4).pdf" "sach(5).pdf" > train.log 2>&1 &
+[1] 18252
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn %
+[1]  + exit 1     nohup python train.py --pdf sach.pdf "sach(2).pdf" "sach(3).pdf" "sach(4).pdf
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % head -15 train.log
+  File "/Users/maixuanngoc/char_rnn/train.py", line 136
+    if args.pdf:
+IndentationError: unexpected indent
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % sed -n '128,155p' train.py | cat -vet
+    else:$
+        device = torch.device('cpu')$
+    print('Device:', device)$
+$
+    txt_path = os.path.join(args.data_dir, args.txt)$
+    last_path = os.path.join(args.data_dir, 'char_rnn_last.pt')$
+    best_path = os.path.join(args.data_dir, 'char_rnn_best.pt')$
+$
+        if args.pdf:$
+        parts = []$
+        for name in args.pdf:$
+            src = os.path.join(args.data_dir, name)$
+            if name.lower().endswith('.pdf'):$
+                tmp = src + '.txt'$
+                pdf_to_text(src, tmp)$
+            else:$
+                tmp = src                      # file .txt $
+            with open(tmp, encoding='utf-8') as f:$
+                parts.append(unicodedata.normalize('NFC', f.read()))$
+            print(f'  + {name}: {len(parts[-1])} character ')$
+        with open(txt_path, 'w', encoding='utf-8') as f:$
+            f.write('\n\n'.join(parts))$
+        print(f'Merge {len(parts)} docs -> {txt_path}')$
+    with open(txt_path, encoding='utf-8') as f:$
+        text = unicodedata.normalize('NFC', f.read())$
+$
+    ckpt = None$
+    if args.resume and os.path.exists(last_path):$
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % nano +136 tr
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % python -m py_compile train.py && echo OK
+OK
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % nohup python train.py --pdf sach.pdf "sach(2).pdf" "sach(3).pdf" "sach(4).pdf" "sach(5).pdf" > train.log 2>&1 &
+[1] 18394
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % tail -f train.log
+^C
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % ps aux | grep train.py
+maixuanngoc      18394 100.0  2.5 435771088 423296 s001  RN   11:45PM   0:36.33 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python train.py --pdf sach.pdf sach(2).pdf sach(3).pdf sach(4).pdf sach(5).pdf
+maixuanngoc      18406   0.0  0.0 435299792   1152 s001  R+   11:45PM   0:00.00 grep train.py
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % tail -f train.log
+Device: mps
+Converted /Users/maixuanngoc/char_rnn/sach.pdf -> /Users/maixuanngoc/char_rnn/sach.pdf.txt (470121 characters)
+  + sach.pdf: 470121 character
+Converted /Users/maixuanngoc/char_rnn/sach(2).pdf -> /Users/maixuanngoc/char_rnn/sach(2).pdf.txt (936298 characters)
+  + sach(2).pdf: 936298 character
+Converted /Users/maixuanngoc/char_rnn/sach(3).pdf -> /Users/maixuanngoc/char_rnn/sach(3).pdf.txt (3 characters)
+  + sach(3).pdf: 3 character
+Converted /Users/maixuanngoc/char_rnn/sach(4).pdf -> /Users/maixuanngoc/char_rnn/sach(4).pdf.txt (2834091 characters)
+  + sach(4).pdf: 2834091 character
+Converted /Users/maixuanngoc/char_rnn/sach(5).pdf -> /Users/maixuanngoc/char_rnn/sach(5).pdf.txt (6831754 characters)
+  + sach(5).pdf: 6831754 character
+Merge 5 docs -> /Users/maixuanngoc/char_rnn/book.txt
+Length of encoded text: 11072275 | Length of dictionary: 257
+CharRNN(
+  (lstm): LSTM(257, 512, num_layers=2, batch_first=True, dropout=0.5)
+  (dropout): Dropout(p=0.5, inplace=False)
+  (fc): Linear(in_features=512, out_features=257, bias=True)
+)
+Epoch 1/20 | Step 100 | Loss 3.7281 | Val 3.6475 | 18s  <- best, saved
+Epoch 1/20 | Step 200 | Loss 2.9986 | Val 2.8598 | 36s  <- best, saved
+Epoch 1/20 | Step 300 | Loss 2.6672 | Val 2.5487 | 55s  <- best, saved
+Epoch 1/20 | Step 400 | Loss 2.4804 | Val 2.3629 | 73s  <- best, saved
+Epoch 1/20 | Step 500 | Loss 2.3535 | Val 2.2502 | 91s  <- best, saved
+Epoch 1/20 | Step 600 | Loss 2.2822 | Val 2.8383 | 109s
+Epoch 1/20 | Step 700 | Loss 2.2019 | Val 2.1305 | 127s  <- best, saved
+== Finished epoch 1, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 2/20 | Step 800 | Loss 2.2940 | Val 2.1841 | 145s
+Epoch 2/20 | Step 900 | Loss 2.1557 | Val 2.0563 | 164s  <- best, saved
+Epoch 2/20 | Step 1000 | Loss 2.1244 | Val 2.0223 | 182s  <- best, saved
+Epoch 2/20 | Step 1100 | Loss 2.0985 | Val 1.9906 | 200s  <- best, saved
+Epoch 2/20 | Step 1200 | Loss 2.0698 | Val 1.9734 | 218s  <- best, saved
+Epoch 2/20 | Step 1300 | Loss 2.0495 | Val 1.9520 | 237s  <- best, saved
+Epoch 2/20 | Step 1400 | Loss 2.0152 | Val 1.9319 | 256s  <- best, saved
+Epoch 2/20 | Step 1500 | Loss 2.0172 | Val 1.9171 | 274s  <- best, saved
+== Finished epoch 2, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 3/20 | Step 1600 | Loss 2.1534 | Val 2.0358 | 293s
+Epoch 3/20 | Step 1700 | Loss 2.0579 | Val 1.9086 | 312s  <- best, saved
+Epoch 3/20 | Step 1800 | Loss 2.0633 | Val 1.9461 | 331s
+Epoch 3/20 | Step 1900 | Loss 2.0000 | Val 1.9475 | 350s
+Epoch 3/20 | Step 2000 | Loss 1.9734 | Val 1.9152 | 369s
+Epoch 3/20 | Step 2100 | Loss 1.9407 | Val 1.9096 | 388s
+Epoch 3/20 | Step 2200 | Loss 1.9683 | Val 1.8936 | 407s  <- best, saved
+Epoch 3/20 | Step 2300 | Loss 1.9410 | Val 1.8807 | 426s  <- best, saved
+== Finished epoch 3, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 4/20 | Step 2400 | Loss 1.9636 | Val 1.8532 | 445s  <- best, saved
+Epoch 4/20 | Step 2500 | Loss 1.9336 | Val 1.8400 | 464s  <- best, saved
+Epoch 4/20 | Step 2600 | Loss 1.9257 | Val 1.8339 | 483s  <- best, saved
+Epoch 4/20 | Step 2700 | Loss 1.9427 | Val 1.8446 | 502s
+Epoch 4/20 | Step 2800 | Loss 1.8931 | Val 1.8442 | 521s
+Epoch 4/20 | Step 2900 | Loss 1.8941 | Val 1.8242 | 540s  <- best, saved
+Epoch 4/20 | Step 3000 | Loss 1.9142 | Val 1.8196 | 559s  <- best, saved
+Epoch 4/20 | Step 3100 | Loss 1.8825 | Val 1.8522 | 578s
+== Finished epoch 4, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 5/20 | Step 3200 | Loss 1.9150 | Val 1.8413 | 598s
+Epoch 5/20 | Step 3300 | Loss 1.8970 | Val 1.8030 | 617s  <- best, saved
+Epoch 5/20 | Step 3400 | Loss 1.8721 | Val 1.8033 | 636s
+Epoch 5/20 | Step 3500 | Loss 1.9034 | Val 1.8046 | 655s
+Epoch 5/20 | Step 3600 | Loss 1.8614 | Val 1.7941 | 674s  <- best, saved
+Epoch 5/20 | Step 3700 | Loss 1.8654 | Val 1.7935 | 693s  <- best, saved
+Epoch 5/20 | Step 3800 | Loss 1.8839 | Val 1.7950 | 712s
+== Finished epoch 5, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 6/20 | Step 3900 | Loss 1.8972 | Val 1.7919 | 731s  <- best, saved
+Epoch 6/20 | Step 4000 | Loss 1.8964 | Val 1.7748 | 750s  <- best, saved
+Epoch 6/20 | Step 4100 | Loss 1.8499 | Val 1.7712 | 769s  <- best, saved
+Epoch 6/20 | Step 4200 | Loss 1.8650 | Val 1.7642 | 788s  <- best, saved
+Epoch 6/20 | Step 4300 | Loss 1.8312 | Val 1.7640 | 808s  <- best, saved
+Epoch 6/20 | Step 4400 | Loss 1.8618 | Val 1.7633 | 827s  <- best, saved
+Epoch 6/20 | Step 4500 | Loss 1.8176 | Val 1.7585 | 846s  <- best, saved
+Epoch 6/20 | Step 4600 | Loss 1.8350 | Val 1.7548 | 865s  <- best, saved
+== Finished epoch 6, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 7/20 | Step 4700 | Loss 1.8590 | Val 1.7728 | 884s
+Epoch 7/20 | Step 4800 | Loss 1.8386 | Val 1.7982 | 903s
+Epoch 7/20 | Step 4900 | Loss 1.8540 | Val 1.7524 | 922s  <- best, saved
+Epoch 7/20 | Step 5000 | Loss 1.8271 | Val 1.7489 | 941s  <- best, saved
+Epoch 7/20 | Step 5100 | Loss 1.8391 | Val 1.7461 | 960s  <- best, saved
+Epoch 7/20 | Step 5200 | Loss 1.8298 | Val 1.7454 | 979s  <- best, saved
+Epoch 7/20 | Step 5300 | Loss 1.8217 | Val 1.7429 | 998s  <- best, saved
+Epoch 7/20 | Step 5400 | Loss 1.8316 | Val 1.7345 | 1018s  <- best, saved
+== Finished epoch 7, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 8/20 | Step 5500 | Loss 1.8192 | Val 1.7325 | 1037s  <- best, saved
+Epoch 8/20 | Step 5600 | Loss 1.8406 | Val 1.7266 | 1056s  <- best, saved
+Epoch 8/20 | Step 5700 | Loss 1.7800 | Val 1.7236 | 1075s  <- best, saved
+Epoch 8/20 | Step 5800 | Loss 1.8066 | Val 1.7239 | 1094s
+Epoch 8/20 | Step 5900 | Loss 1.8301 | Val 1.7207 | 1113s  <- best, saved
+Epoch 8/20 | Step 6000 | Loss 1.7773 | Val 1.7180 | 1132s  <- best, saved
+Epoch 8/20 | Step 6100 | Loss 1.8140 | Val 1.7192 | 1151s
+Epoch 8/20 | Step 6200 | Loss 1.7725 | Val 1.7113 | 1170s  <- best, saved
+== Finished epoch 8, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 9/20 | Step 6300 | Loss 1.8097 | Val 1.7179 | 1190s
+Epoch 9/20 | Step 6400 | Loss 1.8031 | Val 1.7108 | 1209s  <- best, saved
+Epoch 9/20 | Step 6500 | Loss 1.8044 | Val 1.7065 | 1228s  <- best, saved
+Epoch 9/20 | Step 6600 | Loss 1.7708 | Val 1.7028 | 1247s  <- best, saved
+Epoch 9/20 | Step 6700 | Loss 1.7933 | Val 1.7055 | 1266s
+Epoch 9/20 | Step 6800 | Loss 1.7730 | Val 1.7001 | 1285s  <- best, saved
+Epoch 9/20 | Step 6900 | Loss 1.7753 | Val 1.6971 | 1304s  <- best, saved
+Epoch 9/20 | Step 7000 | Loss 1.8122 | Val 1.6998 | 1323s
+== Finished epoch 9, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 10/20 | Step 7100 | Loss 1.7932 | Val 1.6934 | 1342s  <- best, saved
+Epoch 10/20 | Step 7200 | Loss 1.7506 | Val 1.6916 | 1362s  <- best, saved
+Epoch 10/20 | Step 7300 | Loss 1.7657 | Val 1.6938 | 1381s
+Epoch 10/20 | Step 7400 | Loss 1.8102 | Val 1.6887 | 1400s  <- best, saved
+Epoch 10/20 | Step 7500 | Loss 1.7747 | Val 1.6863 | 1419s  <- best, saved
+Epoch 10/20 | Step 7600 | Loss 1.7640 | Val 1.6850 | 1438s  <- best, saved
+Epoch 10/20 | Step 7700 | Loss 1.7696 | Val 1.6824 | 1457s  <- best, saved
+== Finished epoch 10, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 11/20 | Step 7800 | Loss 1.7687 | Val 1.6837 | 1476s
+Epoch 11/20 | Step 7900 | Loss 1.7826 | Val 1.6798 | 1495s  <- best, saved
+Epoch 11/20 | Step 8000 | Loss 1.7786 | Val 1.6805 | 1514s
+Epoch 11/20 | Step 8100 | Loss 1.8046 | Val 1.6777 | 1534s  <- best, saved
+Epoch 11/20 | Step 8200 | Loss 1.7394 | Val 1.6789 | 1553s
+Epoch 11/20 | Step 8300 | Loss 1.7251 | Val 1.6744 | 1572s  <- best, saved
+Epoch 11/20 | Step 8400 | Loss 1.7124 | Val 1.6754 | 1591s
+Epoch 11/20 | Step 8500 | Loss 1.7749 | Val 1.7318 | 1610s
+== Finished epoch 11, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 12/20 | Step 8600 | Loss 1.7772 | Val 1.6945 | 1629s
+Epoch 12/20 | Step 8700 | Loss 1.7226 | Val 1.6642 | 1648s  <- best, saved
+Epoch 12/20 | Step 8800 | Loss 1.7212 | Val 1.6798 | 1667s
+Epoch 12/20 | Step 8900 | Loss 1.7531 | Val 1.6696 | 1686s
+Epoch 12/20 | Step 9000 | Loss 1.7566 | Val 1.6642 | 1705s
+Epoch 12/20 | Step 9100 | Loss 1.7450 | Val 1.6581 | 1724s  <- best, saved
+Epoch 12/20 | Step 9200 | Loss 1.7418 | Val 1.6587 | 1744s
+Epoch 12/20 | Step 9300 | Loss 1.7313 | Val 1.6621 | 1763s
+== Finished epoch 12, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 13/20 | Step 9400 | Loss 1.7573 | Val 1.6567 | 1782s  <- best, saved
+Epoch 13/20 | Step 9500 | Loss 1.7181 | Val 1.6545 | 1801s  <- best, saved
+Epoch 13/20 | Step 9600 | Loss 1.7560 | Val 1.6532 | 1820s  <- best, saved
+Epoch 13/20 | Step 9700 | Loss 1.7551 | Val 1.6520 | 1839s  <- best, saved
+Epoch 13/20 | Step 9800 | Loss 1.7075 | Val 1.6466 | 1858s  <- best, saved
+Epoch 13/20 | Step 9900 | Loss 1.7137 | Val 1.6479 | 1877s
+Epoch 13/20 | Step 10000 | Loss 1.7225 | Val 1.6485 | 1896s
+Epoch 13/20 | Step 10100 | Loss 1.6835 | Val 1.6452 | 1915s  <- best, saved
+== Finished epoch 13, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 14/20 | Step 10200 | Loss 1.7082 | Val 1.6632 | 1935s
+client_loop: send disconnect: Connection reset
+PS C:\Windows\System32> ssh maixuanngoc@100.80.74.96
+(maixuanngoc@100.80.74.96) Password:
+Last login: Sat Nov 14 20:43:36 2026 from 100.104.95.26
+maixuanngoc@maixuanngocs-Mac-mini ~ % ps aux | grep train.py
+maixuanngoc      18394   3.8  4.9 435930256 830176   ??  SN   11:45PM   4:47.87 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python train.py --pdf sach.pdf sach(2).pdf sach(3).pdf sach(4).pdf sach(5).pdf
+maixuanngoc      19171   0.0  0.0 435299776   1360 s001  S+   12:28AM   0:00.00 grep train.py
+maixuanngoc@maixuanngocs-Mac-mini ~ % ps aux | grep train.py
+maixuanngoc      18394   3.8  5.0 435930256 831456   ??  SN   11:45PM   4:50.49 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python train.py --pdf sach.pdf sach(2).pdf sach(3).pdf sach(4).pdf sach(5).pdf
+maixuanngoc      19188   0.0  0.0 435300112   1360 s001  S+   12:29AM   0:00.01 grep train.py
+maixuanngoc@maixuanngocs-Mac-mini ~ % ls -l *.pt
+zsh: no matches found: *.pt
+maixuanngoc@maixuanngocs-Mac-mini ~ % cd ~/char_rnn && ls -l *.pt
+-rw-r--r--  1 maixuanngoc  staff  45761545 Nov 15 00:27 char_rnn_best.pt
+-rw-r--r--  1 maixuanngoc  staff  45761545 Nov 15 00:30 char_rnn_last.pt
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls -l *.pt         -rw-r--r--  1 maixuanngoc  staff  45761545 Nov 15 00:27 char_rnn_best.pt
+-rw-r--r--  1 maixuanngoc  staff  45761545 Nov 15 00:30 char_rnn_last.pt
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % nohup python -u train.py --resume >> train.log 2>&1 &
+[1] 19221
+maixuanngoc@maixuanngocs-Mac-mini char_rnn %
+[1]  + exit 127   nohup python -u train.py --resume >> train.log 2>&1
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % ps aux | grep train.py
+maixuanngoc      18394   3.9  5.0 435930256 833728   ??  SN   11:45PM   4:55.32 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python train.py --pdf sach.pdf sach(2).pdf sach(3).pdf sach(4).pdf sach(5).pdf
+maixuanngoc      19226   0.0  0.0 435299648   1360 s001  S+   12:31AM   0:00.01 grep train.py
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % tail -20 train.log
+Epoch 16/20 | Step 11800 | Loss 1.7119 | Val 1.6295 | 2240s
+Epoch 16/20 | Step 11900 | Loss 1.7121 | Val 1.6228 | 2259s  <- best, saved
+Epoch 16/20 | Step 12000 | Loss 1.7521 | Val 1.6228 | 2278s
+Epoch 16/20 | Step 12100 | Loss 1.7075 | Val 1.6228 | 2297s
+Epoch 16/20 | Step 12200 | Loss 1.7242 | Val 1.6221 | 2316s  <- best, saved
+Epoch 16/20 | Step 12300 | Loss 1.7087 | Val 1.6204 | 2336s  <- best, saved
+Epoch 16/20 | Step 12400 | Loss 1.6934 | Val 1.6192 | 2355s  <- best, saved
+== Finished epoch 16, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 17/20 | Step 12500 | Loss 1.7918 | Val 1.6385 | 2374s
+Epoch 17/20 | Step 12600 | Loss 1.7453 | Val 1.6260 | 2393s
+Epoch 17/20 | Step 12700 | Loss 1.6686 | Val 1.6234 | 2412s
+Epoch 17/20 | Step 12800 | Loss 1.7176 | Val 1.6202 | 2431s
+Epoch 17/20 | Step 12900 | Loss 1.7043 | Val 1.6213 | 2450s
+Epoch 17/20 | Step 13000 | Loss 1.6919 | Val 1.6213 | 2469s
+Epoch 17/20 | Step 13100 | Loss 1.6976 | Val 1.6215 | 2488s
+Epoch 17/20 | Step 13200 | Loss 1.7027 | Val 1.6295 | 2507s
+== Finished epoch 17, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 18/20 | Step 13300 | Loss 1.7266 | Val 1.6279 | 2526s
+Epoch 18/20 | Step 13400 | Loss 1.7179 | Val 1.6163 | 2545s  <- best, saved
+Epoch 18/20 | Step 13500 | Loss 1.6596 | Val 1.6142 | 2565s  <- best, saved
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls -l *.pt
+-rw-r--r--  1 maixuanngoc  staff  45761545 Nov 15 00:31 char_rnn_best.pt
+-rw-r--r--  1 maixuanngoc  staff  45761545 Nov 15 00:30 char_rnn_last.pt
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % tail -f train.log
+Epoch 17/20 | Step 13000 | Loss 1.6919 | Val 1.6213 | 2469s
+Epoch 17/20 | Step 13100 | Loss 1.6976 | Val 1.6215 | 2488s
+Epoch 17/20 | Step 13200 | Loss 1.7027 | Val 1.6295 | 2507s
+== Finished epoch 17, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 18/20 | Step 13300 | Loss 1.7266 | Val 1.6279 | 2526s
+Epoch 18/20 | Step 13400 | Loss 1.7179 | Val 1.6163 | 2545s  <- best, saved
+Epoch 18/20 | Step 13500 | Loss 1.6596 | Val 1.6142 | 2565s  <- best, saved
+Epoch 18/20 | Step 13600 | Loss 1.6553 | Val 1.6127 | 2584s  <- best, saved
+Epoch 18/20 | Step 13700 | Loss 1.6832 | Val 1.6112 | 2603s  <- best, saved
+Epoch 18/20 | Step 13800 | Loss 1.6984 | Val 1.6112 | 2622s
+Epoch 18/20 | Step 13900 | Loss 1.6818 | Val 1.6078 | 2641s  <- best, saved
+Epoch 18/20 | Step 14000 | Loss 1.6710 | Val 1.6080 | 2660s
+== Finished epoch 18, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 19/20 | Step 14100 | Loss 1.7066 | Val 1.6083 | 2679s
+Epoch 19/20 | Step 14200 | Loss 1.7077 | Val 1.6085 | 2698s
+Epoch 19/20 | Step 14300 | Loss 1.7037 | Val 1.6077 | 2717s  <- best, saved
+Epoch 19/20 | Step 14400 | Loss 1.6871 | Val 1.6098 | 2736s
+Epoch 19/20 | Step 14500 | Loss 1.6924 | Val 1.6045 | 2756s  <- best, saved
+Epoch 19/20 | Step 14600 | Loss 1.6596 | Val 1.6058 | 2775s
+Epoch 19/20 | Step 14700 | Loss 1.6748 | Val 1.6033 | 2794s  <- best, saved
+== Finished epoch 19, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 20/20 | Step 14800 | Loss 1.6816 | Val 1.6055 | 2813s
+Epoch 20/20 | Step 14900 | Loss 1.6902 | Val 1.6024 | 2832s  <- best, saved
+Epoch 20/20 | Step 15000 | Loss 1.6811 | Val 1.6014 | 2851s  <- best, saved
+Epoch 20/20 | Step 15100 | Loss 1.6688 | Val 1.6003 | 2870s  <- best, saved
+Epoch 20/20 | Step 15200 | Loss 1.7107 | Val 1.5999 | 2889s  <- best, saved
+Epoch 20/20 | Step 15300 | Loss 1.6908 | Val 1.6109 | 2908s
+Epoch 20/20 | Step 15400 | Loss 1.6654 | Val 1.5973 | 2927s  <- best, saved
+Epoch 20/20 | Step 15500 | Loss 1.6883 | Val 1.5967 | 2947s  <- best, saved
+== Finished epoch 20, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Best validation loss: 1.596739696901898
+
+nvidia-smi
+ps aux | grep train.py
+^C
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls -lh ~/char_rnn/*.pt
+-rw-r--r--  1 maixuanngoc  staff    44M Nov 15 00:37 /Users/maixuanngoc/char_rnn/char_rnn_best.pt
+-rw-r--r--  1 maixuanngoc  staff    44M Nov 15 00:37 /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % python generate.py --prime "giải thưởng" --n 3
+zsh: command not found: python
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % python generate.py --prime "Ngày xưa" --n 3
+zsh: command not found: python
+maixuanngoc@maixuanngocs-Mac-mini char_rnn % source venv/bin/activate
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % python generate.py --prime "Giải thưởng" --top-k 5 --temperature 0.8
+Device: mps
+Checkpoint: epoch 20, step 15500, val 1.5967
+
+--- Mẫu 1 ---
+Giải thưởng,    đó      chỉ     cảnh    sát     của     những  người    như     thi     thường  của     một     cách    lạnh   trong    cái     tiện
+của     cái     nhà     chuyện  cho     những   đứa     làm    chứ?     Nhưng   cái     nhìn    cho     chú     Sirius  đã     đi       như     trong   cái     trong   nhà     cho     chúng  ta       nghĩ    với     chúng   của     Har​ry.  Trong   như    thế      nữa     đó,     và      như     người   ngồi    nào    nói,     trước   như     cho     các     chiến   lên     của    con      đã      đó      lắm.
+
+--- Mẫu 2 ---
+Giải thưởng     của     bọn     mình    thường  của,    cô     nói
+với     nó      cho     nó      cũng    nói     này     có     một      con     đá      và      mấy     người   ta      cho    cái      gì      thì     chỉ     thấy    các     chúng   ta     làm      gì      của
+tôi     nghĩ    là      chúng   ta      đi      thì     làm    trên     đây     của     tụi     nó      chỉ     ngồi    như    cho      nó      chi     cho     các     trường  đã      thì    nó       chỉ     đi      trở     lại     cho     nhau    đó.    Nhưng    nó      nghe    chỉ     chỉ     là      một     là     thứ      thì     trong   cái     gian    đầu     trong   cái    đầm      thì     thần    được    đi,     thế     nó      lại    nhìn     như     ngày    nhau
+đi      đi      với     những   cây     có      cái     cách   lên      đó      đã      lại     nữa.    Được    đó      là     những    người   đóng    cho     chú     Sirius  thôi... cánh   giáo     thì     con     thì     thầm    về      thầy    có     thể      thì     trên    thư     và      đi      là      trong  tay      thì     cái     đầu     nhau    của     Hermione       có       thể     cho     chúng   những   cánh    cửa     được   thưa     nào.    Chúng   ta      khó     đã      tới     đó     đang     chỉ     đưa     nhìn
+như     một     lúc     trong   chuyện  những   được    một    cái      chân    thuốc   lại     và      thấy    chúng   ta     nói.     “Được   nói     chuyện  thường  trên    một     trước  đó,      có      thể     có      chuyện  đó      trong   chúng  ta       lại     đã      thì     chúng   ta      nói     đi,    vẫn      đã      lại     chỉ     đi      trong   những   cách   người    được    những   người   có      ngay    thì     làm    nhau     thì     trong   điều    thì     thầy    nói
+đó      trong   người   đã      thì     ch
+
+--- Mẫu 3 ---
+Giải thưởng     ngoài   chuyện  được    thường. Chúng   tôi    đi       thường  nữa.    Harry   và      Harry   đi      tới    thương,  trước   trên    cho     ngài    và      người   đó     nhìn     cái     gì      đó      ngay    như     chỉ     chỉ    có
+những   người   thưa.
+
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % head -n 20 ~/char_rnn/sach.txt
+head: /Users/maixuanngoc/char_rnn/sach.txt: No such file or directory
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % head -n 20 ~/char_rnn/sach(2).txt
+zsh: no matches found: /Users/maixuanngoc/char_rnn/sach(2).txt
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % pwd
+/Users/maixuanngoc/char_rnn
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls
+book.txt                sach(4).pdf.txt
+char_rnn_best.pt        sach(5).pdf
+char_rnn_last.pt        sach(5).pdf.txt
+generate.py             sach.pdf
+sach(2).pdf             sach.pdf.txt
+sach(2).pdf.txt         train.log
+sach(3).pdf             train.py
+sach(3).pdf.txt         venv
+sach(4).pdf
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % head -n 20 ~/char_rnn/book.txt
+
+Mục lục
+Giới Thiệu
+Chương 1: Thư Hồi Âm Để Trong Hộp Nhận Sữa - (1)
+(2)
+(3)
+(4)
+(5)
+(6)
+Chương 2: Thổi Kèn Harmonica Giữa Đêm Khuya - (1)
+(2)
+(3)
+(4)
+(5)
+(6)
+(7)
+(8)
+(9)
+(10)
+Chương 3: Ở Trong Xe Civic Đến Sáng - (1)
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % nano train.py
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % python -c "import train; print('OK')"
+OK
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % grep -n -A5 "def join_pdf_lines" train.py
+16:def join_pdf_lines(text):
+17-    text = re.sub(r'[ \t]+\n', '\n', text)                      # bỏ khoảng trắng cuối dòng
+18-    text = re.sub(r'(?<!\n)\n(?!\n|\s*[-–—•])', ' ', text)     # \n đơn lẻ -> dấu cách
+19-    text = re.sub(r'[ \t]{2,}', ' ', text)                      # gộp khoảng trắng thừa
+20-    return text
+21-
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % mkdir -p old && mv *.pt train.log old/
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls
+book.txt        sach(2).pdf.txt sach(4).pdf.txt sach.pdf
+generate.py     sach(3).pdf     sach(5).pdf     sach.pdf.txt
+old             sach(3).pdf.txt sach(5).pdf.txt train.py
+sach(2).pdf     sach(4).pdf     sach(6).pdf     venv
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls -lh old/
+total 178800
+-rw-r--r--  1 maixuanngoc  staff    44M Nov 15 00:37 char_rnn_best.pt
+-rw-r--r--  1 maixuanngoc  staff    44M Nov 15 00:37 char_rnn_last.pt
+-rw-r--r--  1 maixuanngoc  staff    13K Nov 15 00:37 train.log
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % d=runs/$(date +%m%d_%H%M) && mkdir -p $d && mv *.pt train.log $d/
+zsh: no matches found: *.pt
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % ls *.log
+zsh: no matches found: *.log
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % python -c "
+import glob, re, unicodedata
+from pypdf import PdfReader
+parts = []
+for pdf in sorted(glob.glob('*.pdf')):
+    t = '\n'.join(p.extract_text() or '' for p in PdfReader(pdf).pages)
+    t = unicodedata.normalize('NFC', t)
+    t = re.sub(r'^\s*\d+\s*$', '', t, flags=re.M)
+    t = re.sub(r'-\n(\w)', r'\1', t)
+    t = re.sub(r'[^\S\n]+', ' ', t)
+    t = re.sub(r' *\n *', '\n', t)
+    t = re.sub(r'\n{3,}', '\n\n', t)
+    t = re.sub(r'(?<!\n)\n(?!\n|[-–—•])', ' ', t)
+    print(pdf, len(t), 'ký tự')
+    parts.append(t.strip())
+all_t = '\n\n'.join(parts)
+open('all_books.txt', 'w', encoding='utf-8').write(all_t)
+print('TỔNG:', len(all_t), 'ký tự | Tab:', all_t.count('\t'))
+"
+zsh: event not found: \n)\n(?!
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % cd ~/char_rnn && ls *.pdf
+sach(2).pdf     sach(4).pdf     sach(6).pdf
+sach(3).pdf     sach(5).pdf     sach.pdf
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % python merge_pdfs.py
+sach(2).pdf 897306 ký tự
+sach(3).pdf 2 ký tự
+sach(4).pdf 2820994 ký tự
+sach(5).pdf 6831754 ký tự
+sach(6).pdf 2930045 ký tự
+sach.pdf 470121 ký tự
+TỔNG: 13950223 ký tự | Tab: 0
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % nohup python -u train.py --txt all_books.txt > train.log 2>&1 &
+[1] 20191
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % tail -f train.log
+Length of encoded text: 13950223 | Length of dictionary: 270
+CharRNN(
+  (lstm): LSTM(270, 512, num_layers=2, batch_first=True, dropout=0.5)
+  (dropout): Dropout(p=0.5, inplace=False)
+  (fc): Linear(in_features=512, out_features=270, bias=True)
+)
+Epoch 1/20 | Step 100 | Loss 3.5645 | Val 3.5326 | 19s  <- best, saved
+Epoch 1/20 | Step 200 | Loss 2.7436 | Val 2.7332 | 39s  <- best, saved
+Epoch 1/20 | Step 300 | Loss 2.4609 | Val 2.4649 | 58s  <- best, saved
+Epoch 1/20 | Step 400 | Loss 2.3303 | Val 2.3171 | 77s  <- best, saved
+Epoch 1/20 | Step 500 | Loss 2.1790 | Val 2.2069 | 97s  <- best, saved
+Epoch 1/20 | Step 600 | Loss 2.1514 | Val 2.1397 | 116s  <- best, saved
+Epoch 1/20 | Step 700 | Loss 2.1551 | Val 2.0956 | 135s  <- best, saved
+Epoch 1/20 | Step 800 | Loss 2.0646 | Val 2.0633 | 155s  <- best, saved
+Epoch 1/20 | Step 900 | Loss 2.0447 | Val 2.0379 | 174s  <- best, saved
+== Finished epoch 1, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 2/20 | Step 1000 | Loss 2.0222 | Val 2.0133 | 193s  <- best, saved
+^C
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % head -n 3 train.log
+Device: mps
+Length of encoded text: 13950223 | Length of dictionary: 270
+CharRNN(
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % cd ~/char_rnn && ls -d */ && ls *.pt
+old/    runs/   venv/
+char_rnn_best.pt        char_rnn_last.pt
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % tail -f train.log
+Epoch 2/20 | Step 1800 | Loss 1.9216 | Val 1.9172 | 353s  <- best, saved
+Epoch 2/20 | Step 1900 | Loss 1.9413 | Val 1.9108 | 374s  <- best, saved
+== Finished epoch 2, saved /Users/maixuanngoc/char_rnn/char_rnn_last.pt
+Epoch 3/20 | Step 2000 | Loss 1.9037 | Val 1.8987 | 394s  <- best, saved
+Epoch 3/20 | Step 2100 | Loss 1.8798 | Val 1.9056 | 414s
+Epoch 3/20 | Step 2200 | Loss 1.8789 | Val 1.8894 | 435s  <- best, saved
+Epoch 3/20 | Step 2300 | Loss 1.8764 | Val 1.8874 | 455s  <- best, saved
+Epoch 3/20 | Step 2400 | Loss 1.8437 | Val 1.8795 | 475s  <- best, saved
+Epoch 3/20 | Step 2500 | Loss 1.8421 | Val 1.8775 | 496s  <- best, saved
+Epoch 3/20 | Step 2600 | Loss 1.8234 | Val 1.8685 | 516s  <- best, saved
+^C
+(venv) maixuanngoc@maixuanngocs-Mac-mini char_rnn % client_loop: send disconnect: Connection reset
+PS C:\Windows\System32> ssh maixuanngoc@100.80.74.96
+PS C:\Windows\System32> ssh maixuanngoc@100.80.74.96
+PS C:\Windows\System32> ssh maixuanngoc@100.80.74.96
+ssh: connect to host 100.80.74.96 port 22: Connection timed out
+PS C:\Windows\System32> tailscale status
+100.104.95.26  desktop-v00afub                          ngocntm2416993@  windows  -
+100.80.74.96   maixuanngocs-mac-mini.tail0a2b27.ts.net  mxngocqb@        macOS    active; relay "sin", tx 1404 rx 0
+PS C:\Windows\System32> tailscale ping 100.80.74.96
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+no reply
+PS C:\Windows\System32> tailscale ping 100.80.74.96
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+ping "100.80.74.96" timed out
+no reply
+PS C:\Windows\System32>
